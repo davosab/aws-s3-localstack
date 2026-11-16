@@ -1,0 +1,2 @@
+Meeting notes - version 1
+- Pick an AWS service for the practical part: S3

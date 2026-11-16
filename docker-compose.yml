@@ -1,0 +1,14 @@
+services:
+  localstack:
+    image: localstack/localstack:2026.3.0 # pinned tag so the setup stays reproducible
+    ports:
+      - "4566:4566"
+    environment:
+      - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN:?Set LOCALSTACK_AUTH_TOKEN in .env}
+      - SERVICES=s3
+      # Check request signatures like real AWS does, so a tampered or expired
+      # presigned URL is rejected (LocalStack skips this check by default).
+      - S3_SKIP_SIGNATURE_VALIDATION=0
+    volumes:
+      - ./samples:/work/samples # so awslocal inside the container can see your files
+      - ./downloads:/work/downloads
